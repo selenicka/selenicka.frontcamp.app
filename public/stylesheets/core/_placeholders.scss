@@ -1,0 +1,18 @@
+%clearfix {
+  &:after {
+    clear: both;
+    height: 0;
+    content: " ";
+    display: block;
+    visibility: hidden;
+  }
+}
+
+%control {
+  border: 1px solid #adadad;
+  box-shadow: none;
+  color: #303030;
+  font-size: 1.4rem;
+  padding: .5rem 1rem;
+  width: 100%;
+}

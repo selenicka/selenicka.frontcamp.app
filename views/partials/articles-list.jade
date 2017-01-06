@@ -1,0 +1,17 @@
+.news-wrapper
+    each item in articles
+        .article-frame
+            .article
+                .article-wrapper
+                    figure.article-image
+                        img.img(alt='selenicka', height='200', src='/images/#{item.image}')
+                    .article-content
+                        h2
+                            a(href="/article/#{item._id}") #{item.title}
+                        p #{item.description}
+                    .article-footer
+                        if item.author
+                            .article-author #{item.author}
+                        if item.publishedAt
+                            .article-published
+                                time(datetime='#(item.publishedAt)') #{item.formatDate(item.publishedAt)}

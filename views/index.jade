@@ -1,0 +1,27 @@
+extends layout
+
+block content
+    #container
+        header
+            .wrapper
+                .usernav
+                    if user
+                        span Welcome, #[a(href='/user') #{user.username}]!
+                        a(href='/logout') Log Out
+                    else
+                        a(href='/login') Log In
+                        a(href='/register') Register
+                .title= title
+
+        section
+            .wrapper
+                .search-wrap
+                    input#filterField.control-text(type='text')
+                    button#resetFilter(type='reset') Clear
+                    button#removeFilter(type='reset') Remove Filter
+                h1 BBC Sport
+                include ./partials/articles-list
+                if user
+                    a#addBtn.btn-primary(href="/article/add") Add Article
+
+        include ./partials/footer

@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    #container
+        include ./partials/header
+
+        section
+            .wrapper
+                h1 BBC Sport
+                form(method='post', action='/article/save', enctype='multipart/form-data')
+                    .control
+                        label Title
+                        input.control-text(type='text', name='title')
+                    .control
+                        label Author
+                        input.control-text(type='text', name='author')
+                    .control
+                        label Text
+                        textarea.control-textarea(cols='40', rows='20', name='content')
+                    .control
+                        label Picture
+                        input.control-image(type='file', name='image')
+                    button.btn-primary(type='submit') Save
+
+        include ./partials/foote
