@@ -5,6 +5,7 @@ var userSchema = new Schema({
     _id: {type: String, default: Date.now()},
     username: String,
     password: String,
+    lastname: String,
     avatar: String
 });
 

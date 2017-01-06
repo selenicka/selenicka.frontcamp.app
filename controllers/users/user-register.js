@@ -18,7 +18,8 @@ router.route('/').post(function(req, res, next) {
         } else {
             var newUser = new User({
                 username: data.username,
-                password: data.password
+                password: data.password,
+                lastname: data.lastname
             });
 
             newUser.save(function (err) {

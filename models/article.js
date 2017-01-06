@@ -5,6 +5,7 @@ var articleSchema = new Schema({
     _id: {type: String, default: Date.now()},
     title:  String,
     author: String,
+    source: String,
     description:   String,
     publishedAt: { type: Date, default: Date.now },
     image: String

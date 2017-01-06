@@ -10,8 +10,10 @@
                             a(href="/article/#{item._id}") #{item.title}
                         p #{item.description}
                     .article-footer
-                        if item.author
-                            .article-author #{item.author}
+                        .article-author #{item.author}
+                        if item.source
+                            .article-source
+                                span Source: #{item.source}
                         if item.publishedAt
                             .article-published
                                 time(datetime='#(item.publishedAt)') #{item.formatDate(item.publishedAt)}

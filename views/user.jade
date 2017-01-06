@@ -7,5 +7,7 @@ block content
         section
             .wrapper
                 h1 #{user.username}
+                if user.lastname
+                    p #{user.lastname}
 
         include ./partials/footer

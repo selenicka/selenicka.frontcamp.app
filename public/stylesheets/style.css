@@ -427,7 +427,9 @@ header {
   margin-top: 1em; }
   .usernav a {
     color: #acd8d2;
-    font-size: 1rem;
+    font-size: 1rem; }
+  .usernav span,
+  .usernav > a {
     margin-left: 0.5em; }
 
 footer {
@@ -479,6 +481,7 @@ h1 {
 .article-footer {
   line-height: 1.2em; }
 
+.article-source,
 .article-author {
   font-size: .9em;
   font-style: italic;

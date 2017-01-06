@@ -7,8 +7,10 @@ block content
         section
             .wrapper
                 h1 #{article.title}
-                if article.author
-                    .article-author #{article.author}
+                .article-author #{article.author}
+                if article.source
+                    .article-source
+                        span Source: #{article.source}
                 if article.publishedAt
                     .article-published
                         time(datetime='#(article.publishedAt)') #{article.formatDate(article.publishedAt)}

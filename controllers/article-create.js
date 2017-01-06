@@ -14,7 +14,11 @@ router.route('/').get(function(req, res, next) {
 });
 
 router.route('/add').get(function(req, res, next) {
-    res.render('article-add', { title: 'News aggregator', user: req.user });
+    if (req.user) {
+        res.render('article-add', {title: 'News aggregator', user: req.user});
+    } else {
+        res.send('You are not logged in.');
+    }
 });
 
 router.post('/save', upload.single('image'), function(req, res, next) {
@@ -34,15 +38,26 @@ router.post('/save', upload.single('image'), function(req, res, next) {
         console.log('renamed complete');
     });
 
+    var author = req.user.lastname;
+    if (!author) {
+        author = req.user.username;
+    }
+
     var article = new Article({
         title: data.title,
+        source: data.source,
+        author: author,
         description: data.content,
         image: src
     });
 
-    article.save();
+    console.log(data);
 
-    res.redirect('/article/add');
+    article.save(function (err) {
+        return err
+            ? next(err)
+            : res.redirect('/article/add')
+    });
 });
 
 router.route('/:id').get(function(req, res, next) {

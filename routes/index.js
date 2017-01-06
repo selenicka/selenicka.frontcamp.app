@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
     } else {
       res.render('index', { title: 'News aggregator', articles: articles, user: req.user });
     }
-  });
+  }).sort({publishedAt: -1});
 });
 
 module.exports = router;

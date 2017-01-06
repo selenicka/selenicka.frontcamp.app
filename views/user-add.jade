@@ -9,8 +9,11 @@ block content
                 h1 Create Account
                 form(method='post', action='/register')
                     .control._required
-                        label Name
+                        label Username
                         input.control-text(type='text', name='username', required='required')
+                    .control
+                        label Name
+                        input.control-text(type='text', name='lastname')
                     .control._required
                         label Password
                         input.control-text(type='password', name='password',required='required')
