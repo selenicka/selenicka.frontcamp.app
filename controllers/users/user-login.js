@@ -10,15 +10,16 @@ router.route('/').get(function(req, res, next) {
 router.route('/').post(function(req, res, next) {
     passport.authenticate('local',
         function(err, user, info) {
+            console.log(user);
             return err
                 ? next(err)
                 : user
                     ? req.login(user, function(err) {
-                    return err
-                        ? next(err)
-                        : res.redirect('/user');
-                    })
-                : res.redirect('/fail');
+                        return err
+                            ? next(err)
+                            : res.redirect('/user');
+                        })
+                    : res.redirect('/fail');
         }
     )(req, res, next);
 });

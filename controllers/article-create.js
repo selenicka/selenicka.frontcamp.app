@@ -51,8 +51,6 @@ router.post('/save', upload.single('image'), function(req, res, next) {
         image: src
     });
 
-    console.log(data);
-
     article.save(function (err) {
         return err
             ? next(err)

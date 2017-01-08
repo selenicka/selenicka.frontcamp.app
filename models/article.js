@@ -2,11 +2,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var articleSchema = new Schema({
-    _id: {type: String, default: Date.now()},
+    //_id: {type: String, default: Date.now(), unique: true},
     title:  String,
     author: String,
     source: String,
-    description:   String,
+    description: String,
     publishedAt: { type: Date, default: Date.now },
     image: String
 });
