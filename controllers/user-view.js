@@ -18,7 +18,7 @@ router.route('/*').all(function(req, res, next) {
 });
 
 router.get('/', function(req, res, next) {
-    res.render('user', {title: 'News aggregator', user: req.user });
+    res.json( {title: 'News aggregator', user: req.user });
 });
 
 module.exports = router;

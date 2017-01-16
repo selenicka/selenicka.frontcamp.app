@@ -15,7 +15,7 @@ router.route('/').get(function(req, res, next) {
 
 router.route('/add').get(function(req, res, next) {
     if (req.user) {
-        res.render('article-add', {title: 'News aggregator', user: req.user});
+        res.json({title: 'News aggregator', user: req.user});
     } else {
         res.send('You are not logged in.');
     }
@@ -53,8 +53,8 @@ router.post('/save', upload.single('image'), function(req, res, next) {
 
     article.save(function (err) {
         return err
-            ? next(err)
-            : res.redirect('/article/add')
+            ? res.json({status: 'error'})
+            : res.json({status: 'ok'})
     });
 });
 
@@ -63,7 +63,7 @@ router.route('/:id').get(function(req, res, next) {
         if(err) {
             res.send('Error!');
         } else {
-            res.render('article-view', {title: 'News aggregator', article: article, user: req.user});
+            res.json({title: 'News aggregator', article: article, user: req.user});
         }
     });
 

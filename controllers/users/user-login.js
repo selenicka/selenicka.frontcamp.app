@@ -4,13 +4,12 @@ var passport = require('passport');
 var user = require('./../../models/user');
 
 router.route('/').get(function(req, res, next) {
-    res.render('user-login', {title: 'News aggregator'});
+    res.json({title: 'News aggregator'});
 });
 
 router.route('/').post(function(req, res, next) {
     passport.authenticate('local',
         function(err, user, info) {
-            console.log(user);
             return err
                 ? next(err)
                 : user

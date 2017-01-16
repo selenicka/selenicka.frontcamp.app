@@ -1,0 +1,121 @@
+h1 {
+    font-size: 3em;
+    font-weight: 400;
+    margin-top: $indent__xs;
+}
+
+.article {
+    @extend %clearfix;
+    padding-bottom: $indent__m;
+    padding-top: $indent__m;
+}
+
+.article-image {
+    margin-bottom: $indent__s;
+    width: 100%;
+}
+
+.article-content {
+    h2 {
+        font-weight: 400;
+        line-height: 1.2em;
+        margin: 0;
+
+        a {
+            color: $link__color;
+            text-decoration: none;
+        }
+    }
+
+    p {
+        margin: $indent__xs 0;
+    }
+}
+
+.article-footer {
+    line-height: 1.2em;
+}
+
+.article-author {
+    font-size: .9em;
+    font-style: italic;
+}
+
+.article-published {
+    color: $article-date__color;
+    font-size: .8em;
+}
+
+#loadBtn {
+    background-color: $btn__background-color;
+    border: 1px solid $btn__border-color;
+    border-radius: 0;
+    color: $color-white;
+    display: inline-block;
+    font-size: 1.6rem;
+    letter-spacing: 0.025em;
+    line-height: 1.36;
+    margin-bottom: $indent__m;
+    padding: 0.6rem 1em;
+    text-align: center;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);
+    vertical-align: baseline;
+
+    &:focus,
+    &:hover {
+        background-color: $btn_hover__background-color;
+        border-color: $btn_hover__border-color;
+    }
+}
+
+.search-wrap {
+    display: none;
+    float: right;
+}
+
+.article-frame {
+    border: 1px solid $color-orange1;
+    padding-left: $indent__s;
+    padding-right: $indent__s;
+    margin-bottom: $indent__m;
+}
+
+.article-bg {
+    background-color: $news__background-color;
+    padding-left: $indent__s;
+    padding-right: $indent__s;
+    margin-bottom: $indent__m;
+
+    .article-published {
+        color: $article-date__color2;
+
+    }
+}
+
+@media all and (min-width: $screen__xs) {
+    .article-image {
+        float: right;
+        margin-left: $indent__m;
+        margin-bottom: 0;
+        width: 30%;
+    }
+}
+
+@media all and (min-width: $screen__m) {
+    .article-image {
+        margin-left: $indent__l;
+        width: $article-image__width;
+    }
+
+    .article-frame {
+        padding-left: $indent__m;
+        padding-right: $indent__m;
+        margin-bottom: $indent__l;
+    }
+
+    .article-bg {
+        padding-left: $indent__m;
+        padding-right: $indent__m;
+        margin-bottom: $indent__l;
+    }
+}

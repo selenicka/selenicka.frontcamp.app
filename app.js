@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var cors = require('cors');
 
 var index = require('./routes/index');
 
@@ -19,6 +20,8 @@ var userLoginController = require('./controllers/users/user-login');
 var userRegisterController = require('./controllers/users/user-register');
 var userLogoutController = require('./controllers/users/user-logout');
 var userFailController = require('./controllers/fail');
+
+app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

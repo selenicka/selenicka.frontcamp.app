@@ -9,9 +9,9 @@ var Article = mongoose.model('Article', article);
 router.get('/', function(req, res, next) {
   Article.find(function (err, articles) {
     if(err) {
-      res.send('Error!');
+      res.json({ status: 'error'});
     } else {
-      res.render('index', { title: 'News aggregator', articles: articles, user: req.user });
+      res.json({ title: 'News aggregator', articles: articles, user: req.user, status: 'ok'});
     }
   }).sort({publishedAt: -1});
 });
