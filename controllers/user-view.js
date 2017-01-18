@@ -5,7 +5,7 @@ var user = require('./../models/user');
 
 var User = mongoose.model('User', user);
 
-router.all('/', function(req, res, next) {
+/*router.all('/', function(req, res, next) {
     req.isAuthenticated()
         ? next()
         : res.redirect('/');
@@ -15,7 +15,7 @@ router.route('/*').all(function(req, res, next) {
     req.isAuthenticated()
         ? next()
         : res.redirect('/');
-});
+});*/
 
 router.get('/', function(req, res, next) {
     res.json( {title: 'News aggregator', user: req.user });
