@@ -34,7 +34,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/public/";
+/******/ 	__webpack_require__.p = "public/";
 
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
@@ -74,6 +74,10 @@
 	var _PageNotFound2 = _interopRequireDefault(_PageNotFound);
 
 	var _reactRouter = __webpack_require__(262);
+
+	var _styles = __webpack_require__(321);
+
+	var _styles2 = _interopRequireDefault(_styles);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -378,15 +382,8 @@
 /* 5 */
 /***/ function(module, exports) {
 
-	/*
-	object-assign
-	(c) Sindre Sorhus
-	@license MIT
-	*/
-
 	'use strict';
 	/* eslint-disable no-unused-vars */
-	var getOwnPropertySymbols = Object.getOwnPropertySymbols;
 	var hasOwnProperty = Object.prototype.hasOwnProperty;
 	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
 
@@ -407,7 +404,7 @@
 			// Detect buggy property enumeration order in older V8 versions.
 
 			// https://bugs.chromium.org/p/v8/issues/detail?id=4118
-			var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
+			var test1 = new String('abc');  // eslint-disable-line
 			test1[5] = 'de';
 			if (Object.getOwnPropertyNames(test1)[0] === '5') {
 				return false;
@@ -436,7 +433,7 @@
 			}
 
 			return true;
-		} catch (err) {
+		} catch (e) {
 			// We don't expect any of the above to throw, but better to be safe.
 			return false;
 		}
@@ -456,8 +453,8 @@
 				}
 			}
 
-			if (getOwnPropertySymbols) {
-				symbols = getOwnPropertySymbols(from);
+			if (Object.getOwnPropertySymbols) {
+				symbols = Object.getOwnPropertySymbols(from);
 				for (var i = 0; i < symbols.length; i++) {
 					if (propIsEnumerable.call(from, symbols[i])) {
 						to[symbols[i]] = from[symbols[i]];
@@ -21601,27 +21598,61 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var numbers = [1, 2, 3, 4, 5];
+	            var articles = this.state.items;
 
 	            return _react2.default.createElement(
 	                'div',
-	                null,
+	                { id: 'container' },
 	                _react2.default.createElement(
-	                    'h1',
+	                    'header',
 	                    null,
-	                    this.state.title
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'wrapper' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'title' },
+	                            this.state.title
+	                        )
+	                    )
 	                ),
 	                _react2.default.createElement(
-	                    _reactRouter.Link,
-	                    { to: '/asdfsdf', activeClassName: 'active' },
-	                    'Bob'
+	                    'section',
+	                    null,
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'wrapper' },
+	                        _react2.default.createElement(
+	                            'h1',
+	                            null,
+	                            'Top stories'
+	                        ),
+	                        _react2.default.createElement(_NewsList2.default, { articles: articles }),
+	                        _react2.default.createElement(
+	                            _reactRouter.Link,
+	                            { to: '/article/add', id: 'addBtn', className: 'btn-primary', activeClassName: 'active' },
+	                            'Add Article'
+	                        )
+	                    )
 	                ),
 	                _react2.default.createElement(
-	                    _reactRouter.Link,
-	                    { to: '/article/add', activeClassName: 'active' },
-	                    'article'
-	                ),
-	                _react2.default.createElement(_NewsList2.default, { numbers: this.state.items })
+	                    'footer',
+	                    null,
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'wrapper' },
+	                        _react2.default.createElement(
+	                            'p',
+	                            null,
+	                            'Powered by ',
+	                            _react2.default.createElement(
+	                                'a',
+	                                { href: 'https://newsapi.org' },
+	                                'NewsAPI'
+	                            )
+	                        )
+	                    )
+	                )
 	            );
 	        }
 	    }]);
@@ -28197,8 +28228,8 @@
 	    (0, _createClass3.default)(NewsList, [{
 	        key: 'render',
 	        value: function render() {
-	            var numbers = this.props.numbers;
-	            var listItems = numbers.map(function (item, key) {
+	            var articles = this.props.articles;
+	            var listItems = articles.map(function (item, key) {
 	                return _react2.default.createElement(_NewsItem2.default, { key: key, value: item });
 	            });
 
@@ -28324,7 +28355,7 @@
 
 	        _this.state = {
 	            title: '',
-	            description: ''
+	            content: ''
 	        };
 	        return _this;
 	    }
@@ -28335,13 +28366,14 @@
 	            e.preventDefault();
 
 	            var urlAPI = 'http://localhost:3000/article/save',
-	                request = new Request(urlAPI);
+	                request = new Request(urlAPI),
+	                myHeaders = new Headers();
 
-	            var myHeaders = new Headers();
 	            myHeaders.append("Content-Type", "application/json");
 
 	            var requestInit = {
 	                method: 'POST',
+	                headers: myHeaders,
 	                mode: 'cors',
 	                body: JSON.stringify(this.state)
 	            };
@@ -28362,20 +28394,6 @@
 	            nextState[field] = e.target.value;
 	            this.setState(nextState);
 	        }
-
-	        /*isValid: function() {
-	            this.state.forEach(function(field) {
-	                console.log(field);
-	            }.bind(this));
-	             this.setState({errors: errors});
-	             var isValid = true;
-	            for (var error in errors) {
-	                isValid = false;
-	                break;
-	            }
-	            return isValid;
-	        }*/
-
 	    }, {
 	        key: 'render',
 	        value: function render() {
@@ -28409,8 +28427,9 @@
 	                    _react2.default.createElement('input', {
 	                        className: 'control-text',
 	                        type: 'text',
-	                        value: this.state.description,
-	                        onChange: this.handleChange.bind(this, 'description')
+	                        required: 'required',
+	                        value: this.state.content,
+	                        onChange: this.handleChange.bind(this, 'content')
 	                    })
 	                ),
 	                _react2.default.createElement(
@@ -28496,6 +28515,12 @@
 	}(_react.Component);
 
 	exports.default = PageNotFound;
+
+/***/ },
+/* 321 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
 
 /***/ }
 /******/ ]);

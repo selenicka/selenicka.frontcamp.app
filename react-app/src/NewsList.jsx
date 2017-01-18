@@ -3,15 +3,15 @@ import NewsItem from './NewsItem.jsx';
 
 class NewsList extends Component {
     render() {
-        const numbers = this.props.numbers;
-        const listItems = numbers.map((item, key) =>
+        const articles = this.props.articles;
+        const listItems = articles.map((item, key) =>
             <NewsItem key={key} value={item} />
         );
 
         return (
-            <section>
-                <div className="wrapper">{listItems}</div>
-            </section>
+            <div className="news-wrapper">
+                <div className="newsList">{listItems}</div>
+            </div>
         );
     }
 }

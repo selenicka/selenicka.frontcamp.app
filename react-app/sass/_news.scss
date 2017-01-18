@@ -36,17 +36,20 @@ h1 {
     line-height: 1.2em;
 }
 
+.article-source,
 .article-author {
     font-size: .9em;
     font-style: italic;
+    margin-bottom: $indent__s;
 }
 
 .article-published {
     color: $article-date__color;
     font-size: .8em;
+    margin-bottom: $indent__s;
 }
 
-#loadBtn {
+.btn-primary {
     background-color: $btn__background-color;
     border: 1px solid $btn__border-color;
     border-radius: 0;
@@ -56,9 +59,11 @@ h1 {
     letter-spacing: 0.025em;
     line-height: 1.36;
     margin-bottom: $indent__m;
+    margin-top: $indent__m;
     padding: 0.6rem 1em;
     text-align: center;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);
+    text-decoration: none;
     vertical-align: baseline;
 
     &:focus,
@@ -88,7 +93,40 @@ h1 {
 
     .article-published {
         color: $article-date__color2;
+    }
+}
 
+.control {
+    margin-top: 1rem;
+
+    label {
+        font-size: 1.2rem;
+        font-weight: 400;
+        line-height: 1.4;
+    }
+
+    .control-text {
+        @extend %control;
+    }
+
+    .control-textarea {
+        @extend %control;
+        height: 5rem;
+        margin-top: 0;
+        resize: vertical;
+    }
+
+    &._required {
+        label {
+            &:after {
+                color: $color-orange1;
+                content: '*';
+                display: inline-block;
+                font-size: 1.2rem;
+                margin-left: .2rem;
+                vertical-align: super;
+            }
+        }
     }
 }
 

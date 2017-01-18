@@ -11,7 +11,7 @@ module.exports = merge(config, {
   devServer: devServer,
   watch: true,
   output: {
-    publicPath: '/public/',
+    publicPath: 'public/',
   },
   plugins: [
     new webpack.DefinePlugin({

@@ -25,7 +25,6 @@ class App extends Component {
             .then(r => r.json())
             .then((response) => {
                 if (response.status === 'ok'){
-                    console.log(response);
                     self.setState({
                         items: response.articles,
                         title: response.title
@@ -38,14 +37,29 @@ class App extends Component {
     }
 
     render() {
-        const numbers = [1, 2, 3, 4, 5];
+        const articles = this.state.items;
 
         return (
-            <div>
-                <h1>{this.state.title}</h1>
-                <Link to="/asdfsdf" activeClassName="active">Bob</Link>
-                <Link to="/article/add" activeClassName="active">article</Link>
-                <NewsList numbers={this.state.items}/>
+            <div id="container">
+                <header>
+                    <div className="wrapper">
+                        <div className="title">{this.state.title}</div>
+                    </div>
+                </header>
+                <section>
+                    <div className="wrapper">
+                        <h1>Top stories</h1>
+                        <NewsList articles={articles}/>
+                        <Link to="/article/add" id="addBtn" className="btn-primary" activeClassName="active">Add Article</Link>
+                    </div>
+                </section>
+                <footer>
+                    <div className="wrapper">
+                        <p>
+                            Powered by <a href="https://newsapi.org">NewsAPI</a>
+                        </p>
+                    </div>
+                </footer>
             </div>
         );
     }
