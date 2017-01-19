@@ -27,13 +27,11 @@ class AddArticle extends Component {
             body: JSON.stringify(this.state)
         };
 
-        console.log(this);
-
         fetch(request, requestInit)
          .then(r => r.json())
          .then(function (data) {
             console.log('Request succeeded with JSON response', data);
-             browserHistory.push('add');
+            browserHistory.push('add');
          })
          .catch(function (error) {
             console.log('Request failed', error);

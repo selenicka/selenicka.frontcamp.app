@@ -62,17 +62,21 @@ router.post('/save', upload.single('image'), function(req, res, next) {
 router.route('/:id').get(function(req, res, next) {
     Article.findOne({_id: req.params.id}, function (err, article) {
         if(err) {
-            res.send('Error!');
+            res.json({ status: 'error'});
         } else {
-            res.json({title: 'News aggregator', article: article, user: req.user});
+            res.json({title: 'News aggregator', article: article, user: req.user, status: 'ok'});
         }
     });
 
 });
 
 router.route('/delete/:id').get(function(req, res, next) {
-    Article.findOne({_id: req.params.id}).remove(function () {
-        res.redirect('/');
+    Article.findOne({_id: req.params.id}).remove(function (err) {
+        if(err) {
+            res.json({ status: 'error'});
+        } else {
+            res.json({title: 'News aggregator', user: req.user, status: 'ok'});
+        }
     });
 
 });

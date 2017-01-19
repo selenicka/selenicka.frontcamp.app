@@ -1,20 +1,23 @@
 import React, {Component} from 'react';
+import { Link } from 'react-router';
 
 class NewsItem extends Component {
     render() {
-        let link = '/article' + this.props.value._id,
-            imageSrc = '/public/images/' + this.props.value.image;
-
         return (
             <div className="js-item">
                 <div className="article-frame">
                     <div className="article">
                         <div className="article-wrapper">
-                            <figure className="article-image">
-                                <img src={imageSrc} height="200"/>
-                            </figure>
+                            {
+                                this.props.value.image &&
+                                <figure className="article-image">
+                                    <img src={`/public/images/${this.props.value.image}`} height="200"/>
+                                </figure>
+                            }
                             <div className="article-content">
-                                <h2><a href={link}>{this.props.value.title}</a></h2>
+                                <h2>
+                                    <Link to={`/article/${this.props.value._id}`}>{this.props.value.title}</Link>
+                                </h2>
                                 <p>{this.props.value.description}</p>
                             </div>
                         </div>
