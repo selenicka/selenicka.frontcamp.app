@@ -1,0 +1,22 @@
+<div ng-hide="showAddForm" class="news-wrapper">
+    <div class="newsList">
+        <div>Amount: {{$ctrl.articleList.length}}</div>
+    
+        <ul class="" ng-repeat="art in $ctrl.articleList">
+            <div class="js-item">
+                <div class="article-frame">
+                    <div class="article">
+                        <div class="article-wrapper">
+                            <div class="article-content">
+                                <h2>
+                                    <a ng-link="[\'ArticleDetails\', {id: art._id}]">{{art.title}}</a>
+                                </h2>
+                                <p>{{art.description}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ul>
+    </div>
+</div>

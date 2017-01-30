@@ -35,24 +35,28 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({ secret: 'SECRET' }));
 app.use(require('node-sass-middleware')({
-  src: path.join(__dirname, 'public'),
-  dest: path.join(__dirname, 'public'),
+  src: path.join(__dirname, 'angular'),
+  dest: path.join(__dirname, 'angular'),
   debug: true,
   sourceMap: true
 }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'angular')));
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', index);
+app.use('/api', index);
 app.use('/login', userLoginController);
 app.use('/register', userRegisterController);
 app.use('/logout', userLogoutController);
 app.use('/user', userController);
 app.use('/fail', userFailController);
 
-app.use('/article', articleCreateController);
+app.use('/api/article', articleCreateController);
+
+app.get('*', function(req, res) {
+  res.sendfile('./angular/index.html');
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
