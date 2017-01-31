@@ -13,30 +13,8 @@ router.route('/').get(function(req, res, next) {
     res.redirect('/articles');
 });
 
-/*router.route('/add').get(function(req, res, next) {
-    if (req.user) {
-        res.json({title: 'News aggregator', user: req.user});
-    } else {
-        res.send('You are not logged in.');
-    }
-});*/
-
 router.post('/save', upload.single('image'), function(req, res, next) {
     var data = req.body;
-    
-    /*if (!req.file) {
-        res.send('No files were uploaded.');
-        return;
-    }
-
-    var ext = req.file.originalname.split('.');
-    ext = ext[ext.length - 1];
-    var src = req.file.filename + '.' + ext;
-
-    fs.rename(publicDir + req.file.filename, publicDir + src, (err) => {
-        if (err) throw err;
-        console.log('renamed complete');
-    });*/
 
     /*var author = req.user.lastname;
     if (!author) {
