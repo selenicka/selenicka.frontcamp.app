@@ -48,7 +48,7 @@ router.post('/save', upload.single('image'), function(req, res, next) {
         title: data.title,
         source: data.source,
         //author: author,
-        description: data.content,
+        description: data.description,
         //image: src
     });
 
@@ -56,6 +56,20 @@ router.post('/save', upload.single('image'), function(req, res, next) {
         return err
             ? res.json({status: 'error'})
             : res.json({status: 'ok'})
+    });
+});
+
+router.route('/update/:id').post(function(req, res, next) {
+    var data = req.body;
+
+    Article.findOne({_id: req.params.id}, function (err, article){
+        var articleUpdated = Object.assign(article, data);
+
+        article.save(function (err) {
+            return err
+                ? res.json({ status: 'error'})
+                : res.json({title: 'News aggregator', article: article, user: req.user, status: 'ok'})
+        });
     });
 });
 

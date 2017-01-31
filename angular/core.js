@@ -15,38 +15,6 @@ app.component('app', {
     ]
 });
 
-app.controller('indexController', ['$scope', '$http', function ($scope, $http) {
-    $scope.showAddForm = false;
-
-    getArticlesList();
-
-    $scope.saveArticle = function (article) {
-        $http({
-            method: 'POST',
-            url: '/article/save',
-            data: article
-        }).then(function successCallback(response) {
-            console.log(response);
-            $scope.showAddForm = false;
-            getArticlesList();
-        }, function errorCallback(response) {
-            console.log('Error: ' + response);
-        });
-    };
-
-    function getArticlesList() {
-        $http({
-            method: 'GET',
-            url: '/api'
-        }).then(function successCallback(response) {
-            $scope.articleList = response.data.articles;
-        }, function errorCallback(response) {
-            console.log('Error: ' + response);
-        });
-    };
-
-}]);
-
 app.directive('contentValidation', function() {
     return {
         require: 'ngModel',
@@ -60,7 +28,6 @@ app.directive('contentValidation', function() {
                     return true;
                 }
 
-                // it is invalid
                 return false;
             };
         }
@@ -71,11 +38,10 @@ angular.module('articles', [])
     .service('articleService', articleService)
     .component('articles', {
         template:
-            '<ng-outlet></ng-outlet>' +
-            '<a class="btn" ng-link="[\'AddArticle\']">Add Article</a>',
+            '<ng-outlet></ng-outlet>',
         $routeConfig: [
             {path: '/', name: 'Articles', component: 'articleList', useAsDefault: true },
-            {path: '/article/:id', name: 'ArticleDetails', component: 'articleItem'},
+            {path: '/article/:id/edit/', name: 'EditArticle', component: 'articleForm'},
             {path: '/article/add', name: 'AddArticle', component: 'articleForm' }
         ]
     })
@@ -89,6 +55,9 @@ angular.module('articles', [])
     })
     .component('articleForm', {
         template: '<add-article></add-article>',
+        bindings: {
+            article: '&'
+        },
         controller: articleFormController
     })
     .directive('addArticle', function() {
@@ -113,6 +82,21 @@ function articleService($http) {
             data: article
         });
     };
+
+    this.updateArticle = function (article) {
+        return $http({
+            method: 'POST',
+            url: '/api/article/update/' + article._id,
+            data: article
+        });
+    };
+
+    this.getArticle = function(id) {
+        return $http({
+            method: 'GET',
+            url: '/api/article/' + id
+        });
+    };
 }
 
 function articleListController(articleService) {
@@ -132,15 +116,36 @@ function articleItemController() {
 function articleFormController(articleService, $scope) {
     var $ctrl = this;
 
+    $ctrl.editing = false;
+
+    this.$routerOnActivate = function(next) {
+        var id = next.params.id;
+        if(id) {
+            $ctrl.editing = true;
+            
+            articleService.getArticle(id).then(function(response) {
+                $scope.article = angular.copy(response.data.article);
+            });
+        }
+    };
+
     $ctrl.saveArticle = function (article, form) {
-        articleService.addArticle(article).then(function(response) {
-            if(response.statusText === "OK"){
-                if (form) {
-                    $scope.article = angular.copy({});
-                    form.$setPristine();
-                    form.$setUntouched();
+        if(article._id) {
+            articleService.updateArticle(article).then(function(response) {
+                if(response.statusText === "OK"){
+                    console.log('updated', response);
                 }
-            }
-        });
+            });
+        } else {
+            articleService.addArticle(article).then(function (response) {
+                if (response.statusText === "OK") {
+                    if (form) {
+                        $scope.article = angular.copy({});
+                        form.$setPristine();
+                        form.$setUntouched();
+                    }
+                }
+            });
+        }
     };
 }

@@ -66,10 +66,14 @@ h1 {
     text-decoration: none;
     vertical-align: baseline;
 
-    &:focus,
-    &:hover {
+    &:focus:not(:disabled),
+    &:hover:not(:disabled) {
         background-color: $btn_hover__background-color;
         border-color: $btn_hover__border-color;
+    }
+
+    &:disabled {
+        opacity: .7;
     }
 }
 

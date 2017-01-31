@@ -1,15 +1,23 @@
+<h1>Top stories</h1>
 <div ng-hide="showAddForm" class="news-wrapper">
     <div class="newsList">
-        <div>Amount: {{$ctrl.articleList.length}}</div>
+        <div>Total:
+            {{$ctrl.articleList.length}}
+            <span ng-if="$ctrl.articleList.length === 1">article</span>
+            <span ng-if="$ctrl.articleList.length > 1">articles</span>
+        </div>
     
         <ul class="" ng-repeat="art in $ctrl.articleList">
             <div class="js-item">
                 <div class="article-frame">
                     <div class="article">
                         <div class="article-wrapper">
+                            <figure class="article-image" ng-if="art.image">
+                                <img ng-src="/public/images/{{art.image}}" height="200"/>
+                            </figure>
                             <div class="article-content">
                                 <h2>
-                                    <a ng-link="[\'ArticleDetails\', {id: art._id}]">{{art.title}}</a>
+                                    <a ng-link="['EditArticle', {id: art._id}]">{{art.title}}</a>
                                 </h2>
                                 <p>{{art.description}}</p>
                             </div>
@@ -20,3 +28,4 @@
         </ul>
     </div>
 </div>
+<a id="addBtn" class="btn-primary" ng-link="['AddArticle']">Add Article</a>

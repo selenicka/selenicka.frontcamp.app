@@ -55,7 +55,7 @@ app.use('/fail', userFailController);
 app.use('/api/article', articleCreateController);
 
 app.get('*', function(req, res) {
-  res.sendfile('./angular/index.html');
+  res.sendFile('index.html', { root: path.join(__dirname, 'angular') });
 });
 
 // catch 404 and forward to error handler

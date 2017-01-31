@@ -1,44 +1,46 @@
-<div id="container">
-            <h1>Add Article</h1>
-            <form name="form" novalidate id="addArticle">
-                <div class="control">
-                    <label>Title</label>
-                    <input
-                            class="control-text"
-                            type="text"
-                            name="artTitle"
-                            required="required"
-                            ng-model="article.title"
-                    />
-                    <div style="color:red" ng-show="form.artTitle.$dirty && form.artTitle.$invalid">
-                        <div ng-show="form.artTitle.$error.required">Tell us your name.</div>
-                    </div>
-                </div>
-                <div class="control">
-                    <label>Source</label>
-                    <input
-                            class="control-text"
-                            type="text"
-                            ng-model="article.source"
-                    />
-                </div>
-                <div class="control">
-                    <label>Text</label>
-                    <input
-                            class="control-text"
-                            type="text"
-                            required="required"
-                            name="artContent"
-                            ng-model="article.content"
-                            content-validation
-                    />
-                </div>
-                <button
-                        type="submit"
-                        class="btn-primary"
-                        ng-click="$ctrl.saveArticle(article, form)"
-                        ng-disabled="form.$invalid"
-                >Save article</button>
-            </form>
-        </div>
+<div ng-if="!$ctrl.editing">
+    <h1>Add Article</h1>
 </div>
+<div ng-if="$ctrl.editing">
+    <h1>Edit Article</h1>
+</div>
+<form name="form" novalidate id="addArticle">
+    <div class="control">
+        <label>Title</label>
+        <input
+                class="control-text"
+                type="text"
+                name="artTitle"
+                required="required"
+                ng-model="article.title"
+        />
+        <div style="color:red" ng-show="form.artTitle.$dirty && form.artTitle.$invalid">
+            <div ng-show="form.artTitle.$error.required">Tell us your name.</div>
+        </div>
+    </div>
+    <div class="control">
+        <label>Source</label>
+        <input
+                class="control-text"
+                type="text"
+                ng-model="article.source"
+        />
+    </div>
+    <div class="control">
+        <label>Text</label>
+        <input
+                class="control-text"
+                type="text"
+                required="required"
+                name="artContent"
+                ng-model="article.description"
+                content-validation
+        />
+    </div>
+    <button
+            type="submit"
+            class="btn-primary"
+            ng-click="$ctrl.saveArticle(article, form)"
+            ng-disabled="form.$invalid"
+    >Save article</button>
+</form>
