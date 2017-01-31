@@ -514,6 +514,13 @@ h1 {
   .btn-primary:disabled {
     opacity: .7; }
 
+.btn-toptext {
+  background-color: transparent;
+  position: absolute;
+  border: none;
+  top: .3rem;
+  right: 2rem; }
+
 .search-wrap {
   display: none;
   float: right; }
@@ -522,7 +529,8 @@ h1 {
   border: 1px solid #e84c3d;
   padding-left: 1em;
   padding-right: 1em;
-  margin-bottom: 2em; }
+  margin-bottom: 2em;
+  position: relative; }
 
 .article-bg {
   background-color: #f1c6b1;

@@ -77,6 +77,14 @@ h1 {
     }
 }
 
+.btn-toptext {
+    background-color: transparent;
+    position: absolute;
+    border: none;
+    top: .3rem;
+    right: 2rem;
+}
+
 .search-wrap {
     display: none;
     float: right;
@@ -87,6 +95,7 @@ h1 {
     padding-left: $indent__s;
     padding-right: $indent__s;
     margin-bottom: $indent__m;
+    position: relative;
 }
 
 .article-bg {

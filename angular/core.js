@@ -1,6 +1,6 @@
 //import styles from './sass/styles.scss';
 
-var app = angular.module('app', ['ngComponentRouter', 'articles']);
+var app = angular.module('app', ['ngComponentRouter', 'articles', 'ngResource']);
 
 app.config(function($locationProvider) {
     $locationProvider.html5Mode(true);
@@ -55,9 +55,6 @@ angular.module('articles', [])
     })
     .component('articleForm', {
         template: '<add-article></add-article>',
-        bindings: {
-            article: '&'
-        },
         controller: articleFormController
     })
     .directive('addArticle', function() {
@@ -91,6 +88,13 @@ function articleService($http) {
         });
     };
 
+    this.removeArticle = function (id) {
+        return $http({
+            method: 'GET',
+            url: '/api/article/delete/' + id
+        });
+    };
+
     this.getArticle = function(id) {
         return $http({
             method: 'GET',
@@ -99,13 +103,32 @@ function articleService($http) {
     };
 }
 
-function articleListController(articleService) {
+function articleListController(articleService, $window, $resource) {
     var $ctrl = this;
+    
     this.$routerOnActivate = function() {
-        return articleService.getArticles().then(function(response) {
-            $ctrl.articleList = response.data.articles;
+        var Article = $resource('/api', null, {
+            query: {method: 'get', isArray: true}
         });
-    }
+
+        return Article.get()
+            .$promise.then(function(response) {
+                $ctrl.articleList = response.articles;
+            });
+    };
+
+    $ctrl.removeArticle = function (articleId) {
+        var Article = $resource('/api/article/delete/:id', {id: '@id'}, {
+            query: {method: 'get', isArray: true}
+        });
+
+        Article.get({ id: articleId })
+            .$promise.then(function(response) {
+                if(response.status === "ok"){
+                    $window.location.href = '/';
+                }
+            });
+    };
 }
 
 function articleItemController() {
@@ -113,7 +136,7 @@ function articleItemController() {
     console.log('item ctrl');
 }
 
-function articleFormController(articleService, $scope) {
+function articleFormController(articleService, $scope, $window) {
     var $ctrl = this;
 
     $ctrl.editing = false;
@@ -133,7 +156,7 @@ function articleFormController(articleService, $scope) {
         if(article._id) {
             articleService.updateArticle(article).then(function(response) {
                 if(response.statusText === "OK"){
-                    console.log('updated', response);
+                    $window.location.href = '/';
                 }
             });
         } else {

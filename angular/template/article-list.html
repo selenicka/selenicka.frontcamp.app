@@ -12,6 +12,7 @@
                 <div class="article-frame">
                     <div class="article">
                         <div class="article-wrapper">
+                            <button type="button" class="btn-toptext" ng-click="$ctrl.removeArticle(art._id)">delete</button>
                             <figure class="article-image" ng-if="art.image">
                                 <img ng-src="/public/images/{{art.image}}" height="200"/>
                             </figure>
@@ -20,6 +21,15 @@
                                     <a ng-link="['EditArticle', {id: art._id}]">{{art.title}}</a>
                                 </h2>
                                 <p>{{art.description}}</p>
+                            </div>
+                            <div class="article-footer">
+                                <div class="article-author">{{art.author}}</div>
+                                <div class="article-source" ng-if="art.source">
+                                    <span>Source: {{art.source}}</span>
+                                </div>
+                                <div class="article-published" ng-if="art.publishedAt">
+                                    <time datetime="{{art.publishedAt}}">{{art.publishedAt | date:"dd MMMM yyyy 'at' h:mma"}}</time>
+                                </div>
                             </div>
                         </div>
                     </div>

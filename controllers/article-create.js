@@ -23,7 +23,6 @@ router.route('/').get(function(req, res, next) {
 
 router.post('/save', upload.single('image'), function(req, res, next) {
     var data = req.body;
-    console.log(data);
     
     /*if (!req.file) {
         res.send('No files were uploaded.');
