@@ -1,11 +1,7 @@
 <h1>Top stories</h1>
 <div ng-hide="showAddForm" class="news-wrapper">
     <div class="newsList">
-        <div>Total:
-            {{$ctrl.articleList.length}}
-            <span ng-if="$ctrl.articleList.length === 1">article</span>
-            <span ng-if="$ctrl.articleList.length > 1">articles</span>
-        </div>
+        <articles-counter></articles-counter>
     
         <ul class="" ng-repeat="art in $ctrl.articleList">
             <div class="js-item">

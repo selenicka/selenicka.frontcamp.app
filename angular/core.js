@@ -53,6 +53,13 @@ angular.module('articles', [])
         templateUrl: './template/article-item.html',
         controller: articleItemController
     })
+    .component('articlesCounter', {
+        require: {
+            articleListCtrl: '^articleList'
+        },
+        templateUrl: './template/articles-counter.html',
+        controller: articlesCounterController
+    })
     .component('articleForm', {
         template: '<add-article></add-article>',
         controller: articleFormController
@@ -101,6 +108,10 @@ function articleService($http) {
             url: '/api/article/' + id
         });
     };
+}
+
+function articlesCounterController(articleService) {
+
 }
 
 function articleListController(articleService, $window, $resource) {
