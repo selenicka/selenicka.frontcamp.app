@@ -1,4 +1,4 @@
-describe('Unit: App', function () {
+describe('Directive: rendering', function () {
     var $el = {};
 
     beforeEach(angular.mock.module('app.templates'));

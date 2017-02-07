@@ -1,4 +1,4 @@
-describe('Unit: App', function () {
+describe('Component: article counter', function () {
     var $componentController;
 
     beforeEach(angular.mock.module('articles'));
@@ -15,13 +15,22 @@ describe('Unit: App', function () {
         expect(ctrl.article.source).toBe('BBC');
     });
 
-    /*it('Replaces the element with the appropriate content', function() {
-     // Compile a piece of HTML containing the directive
-     var childElement = angular.element("<articles-counter></articles-counter>");
-     var element = $compile(childElement)($rootScope);
-     // fire all the watches, so the scope expression {{1 + 1}} will be evaluated
-     $rootScope.$digest();
-     // Check that the compiled element contains the templated content
-     expect(element.html()).toContain("Total: 8 articles");
-     });*/
+    it('should count amount of articles', function() {
+        var bindings = {
+            articles: [
+                {
+                    "title":"Economists Want to Be Members of Donald Trump’s Team -- Really",
+                    "source":"Bloomberg"
+                },
+                {
+                    "title":"Russian skeleton athletes have suspension lifted by IBSF",
+                    "source":"BBC Sport"
+                }
+            ]
+        };
+
+        var ctrl = $componentController('articlesCounter', null, bindings);
+
+        expect(ctrl.articles.length).toEqual(2);
+    });
 });
