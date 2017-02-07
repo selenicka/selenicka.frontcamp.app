@@ -18,6 +18,7 @@ module.exports = function(config) {
       'node_modules/angular-route/angular-route.js',
       'node_modules/angular-mocks/angular-mocks.js',
       'angular/*.js',
+      'angular/**/*.html',
       {
         pattern: 'test/unit/*.spec.js',
         watched: true,
@@ -37,13 +38,15 @@ module.exports = function(config) {
       require('karma-phantomjs-launcher'),
       require('karma-webpack'),
       require('karma-sourcemap-loader'),
+      require('karma-ng-html2js-preprocessor'),
       require('karma-jasmine')
     ],
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'test/unit/*.spec.js': ['webpack']
+      'test/unit/*.spec.js': ['webpack'],
+      'angular/**/*.html': ["ng-html2js"]
     },
 
     webpack: {
@@ -68,6 +71,12 @@ module.exports = function(config) {
       // webpack-dev-middleware configuration
       // i. e.
       stats: false
+    },
+
+    ngHtml2JsPreprocessor: {
+      // the name of the Angular module to create
+      stripPrefix: 'angular/',
+      moduleName: "app.templates"
     },
 
     // test results reporter to use

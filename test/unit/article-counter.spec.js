@@ -8,12 +8,11 @@ describe('Unit: App', function () {
     }));
 
     it('should expose a counter object', function() {
-        // Here we are passing actual bindings to the component
-        var bindings = {article: {name: 'Wolverine'}};
+        var bindings = {article: {source: 'BBC'}};
         var ctrl = $componentController('articlesCounter', null, bindings);
 
         expect(ctrl.article).toBeDefined();
-        expect(ctrl.article.name).toBe('Wolverine');
+        expect(ctrl.article.source).toBe('BBC');
     });
 
     /*it('Replaces the element with the appropriate content', function() {
