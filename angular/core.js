@@ -1,6 +1,6 @@
 //import styles from './sass/styles.scss';
 
-var app = angular.module('app', ['ngComponentRouter', 'articles', 'ngResource']);
+var app = angular.module('app', ['ngComponentRouter', 'articles', 'ngResource', 'customValidators']);
 
 app.config(function($locationProvider) {
     $locationProvider.html5Mode(true);
@@ -15,24 +15,25 @@ app.component('app', {
     ]
 });
 
-app.directive('contentValidation', function() {
-    return {
-        require: 'ngModel',
-        link: function(scope, elm, attrs, ctrl) {
-            ctrl.$validators.contentValidation = function(modelValue, viewValue) {
-                if (ctrl.$isEmpty(modelValue)) {
-                    return true;
-                }
+angular.module('customValidators', [])
+    .directive('contentValidation', function() {
+        return {
+            require: 'ngModel',
+            link: function(scope, elm, attrs, ctrl) {
+                ctrl.$validators.contentValidation = function(modelValue, viewValue) {
+                    if (ctrl.$isEmpty(modelValue)) {
+                        return true;
+                    }
 
-                if (modelValue.length > 20) {
-                    return true;
-                }
+                    if (modelValue.length > 20) {
+                        return true;
+                    }
 
-                return false;
-            };
-        }
-    };
-});
+                    return false;
+                };
+            }
+        };
+    });
 
 angular.module('articles', [])
     .service('articleService', articleService)
