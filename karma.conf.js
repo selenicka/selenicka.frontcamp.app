@@ -40,6 +40,7 @@ module.exports = function(config) {
       require('karma-webpack'),
       require('karma-sourcemap-loader'),
       require('karma-ng-html2js-preprocessor'),
+      require('karma-coverage'),
       require('karma-jasmine')
     ],
 
@@ -47,6 +48,7 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       'test/unit/*.spec.js': ['webpack'],
+      'angular/*.js': ['coverage'],
       'angular/**/*.html': ["ng-html2js"]
     },
 
@@ -83,8 +85,15 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage'],
 
+    coverageReporter: {
+      type : 'html',
+      dir : 'coverage/',
+      instrumenterOptions: {
+        istanbul: { noCompact: true }
+      }
+    },
 
     // web server port
     port: 9876,
